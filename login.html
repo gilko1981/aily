@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Ally</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <section class="content">
+        <h1>Login</h1>
+        <p>Sign in with your Google account to access personalized features and manage tasks with Ally.</p>
+        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code
+&client_id=YOUR_CLIENT_ID
+&redirect_uri=https://yourdomain.com/oauth2callback
+&scope=https://www.googleapis.com/auth/tasks
+&access_type=offline">
+            <button class="google-signin">Sign in with Google</button>
+        </a>
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        async function loadHTML(id, file) {
+            const element = document.getElementById(id);
+            const response = await fetch(file);
+            if (response.ok) {
+                element.innerHTML = await response.text();
+            } else {
+                console.error('Error loading:', file);
+            }
+        }
+
+        loadHTML('header', 'header.html');
+        loadHTML('footer', 'footer.html');
+    </script>
+</body>
+</html>
