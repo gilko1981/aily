@@ -29,11 +29,22 @@
         }
 
         .otp-section input {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             margin: 0 5px;
             font-size: 18px;
             text-align: center;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+
+        .otp-section .phone-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
             border: 1px solid #444;
             border-radius: 5px;
             background-color: #3a3a3a;
@@ -79,11 +90,19 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+
+        .google-login {
+            display: none;
+            background-color: #4285F4;
+            margin-top: 10px;
+        }
+
+        .google-login:hover {
+            background-color: #357ae8;
+        }
     </style>
 </head>
 <body>
-    <div id="header"></div>
-
     <section class="hero">
         <h1>Ally</h1>
         <p>Imagine having a personal consultant who is always available, responds instantly, understands your needs, and provides expert advice — right from your WhatsApp. That’s what we bring to the table.</p>
@@ -92,7 +111,7 @@
     <section class="otp-section">
         <h2>Verify Your Phone</h2>
         <p>We sent a verification code to your mobile. Enter the code from WhatsApp in the field below.</p>
-        <p>******9265</p>
+        <input type="text" class="phone-input" placeholder="Enter your phone number" id="phoneInput" required>
         <div class="countdown-timer" id="countdownTimer">Code Expires in: 05:00</div>
 
         <div>
@@ -107,12 +126,11 @@
         <div class="otp-buttons">
             <button type="button" id="pasteCode">Paste Code</button>
             <button type="button" id="verifyOtp">Verify My Number</button>
+            <button type="button" class="google-login" id="googleLogin">Login with Google</button>
             <a href="#" id="resendCode">Didn’t get the code? Resend</a>
             <a href="#" id="changeNumber">Want to change number? Change Number</a>
         </div>
     </section>
-
-    <div id="footer"></div>
 
     <script>
         // Countdown timer logic
@@ -163,6 +181,7 @@
 
             if (enteredCode === '123456') {
                 alert('Phone number verified successfully!');
+                document.getElementById('googleLogin').style.display = 'block';
             } else {
                 alert('Invalid code. Please try again.');
             }
