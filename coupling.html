@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Phone and Google Account</title>
+</head>
+<body>
+    <h2>Link Your Phone Number and Google Account</h2>
+    <form id="linkForm">
+        <label for="phoneNumber">Enter your phone number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="+1234567890" required>
+        <button type="button" id="sendOtp">Send OTP</button>
+
+        <div id="otpSection" style="display:none;">
+            <label for="otpCode">Enter the validation code:</label>
+            <input type="text" id="otpCode" name="otpCode" maxlength="6" required>
+            <button type="button" id="verifyOtp">Verify OTP</button>
+        </div>
+
+        <div id="googleLoginSection" style="display:none;">
+            <p>Phone number verified! Now login with your Google account:</p>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code
+            &client_id=YOUR_CLIENT_ID
+            &redirect_uri=https://yourdomain.com/oauth2callback
+            &scope=https://www.googleapis.com/auth/tasks
+            &access_type=offline">
+                <button type="button">Login with Google</button>
+            </a>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('sendOtp').addEventListener('click', function() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber) {
+                alert('Please enter a valid phone number.');
+                return;
+            }
+            // Send OTP via your backend
+            fetch('/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phoneNumber })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('otpSection').style.display = 'block';
+                } else {
+                    alert(data.message || 'Failed to send OTP.');
+                }
+            });
+        });
+
+        document.getElementById('verifyOtp').addEventListener('click', function() {
+            const otpCode = document.getElementById('otpCode').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!otpCode || !phoneNumber) {
+                alert('Please complete the fields.');
+                return;
+            }
+            // Verify OTP via your backend
+            fetch('/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phoneNumber, otpCode })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('googleLoginSection').style.display = 'block';
+                } else {
+                    alert(data.message || 'OTP verification failed.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
