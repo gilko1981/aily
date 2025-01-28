@@ -22,7 +22,7 @@
             <input type="text" id="phoneNumber" name="phoneNumber" placeholder="+1234567890" required>
             <button type="button" id="sendOtp">Send OTP</button>
 
-            <div id="otpInputSection" style="margin-top: 20px; display: none;">
+            <div id="otpInputSection" class="hidden">
                 <label for="otpCode">Enter the validation code:</label>
                 <input type="text" id="otpCode" name="otpCode" maxlength="6" required>
                 <button type="button" id="verifyOtp">Verify OTP</button>
@@ -75,7 +75,7 @@
                 if (timeLeft <= 0) {
                     clearInterval(countdownInterval);
                     alert('Time expired! Please request a new OTP.');
-                    document.getElementById('otpInputSection').style.display = 'none';
+                    document.getElementById('otpInputSection').classList.add('hidden');
                 }
 
                 timeLeft -= 1;
@@ -93,7 +93,7 @@
             // Mock success response
             setTimeout(() => {
                 alert('OTP sent successfully!');
-                document.getElementById('otpInputSection').style.display = 'block';
+                document.getElementById('otpInputSection').classList.remove('hidden');
                 clearInterval(countdownInterval); // Clear any previous countdown
                 startCountdown(300); // Start a 5-minute countdown
             }, 500); // Simulate network delay
