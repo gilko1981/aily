@@ -224,5 +224,6 @@ button:disabled {
     font-weight: bold;
     margin-top: 10px;
     text-align: center;
+    display: block;
 }
 
