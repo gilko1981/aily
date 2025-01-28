@@ -5,6 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Phone and Google Account</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .otp-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .otp-section h2 {
+            color: #f2f2f2;
+            margin-bottom: 10px;
+        }
+
+        .otp-section p {
+            color: #f2f2f2;
+            margin-bottom: 20px;
+        }
+
+        .otp-section input {
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+            font-size: 18px;
+            text-align: center;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+
+        .otp-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .otp-buttons button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .otp-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .otp-buttons a {
+            color: #4caf50;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .otp-buttons a:hover {
+            text-decoration: underline;
+        }
+
+        .countdown-timer {
+            color: #ff3e3e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div id="header"></div>
@@ -14,112 +89,90 @@
         <p>Imagine having a personal consultant who is always available, responds instantly, understands your needs, and provides expert advice — right from your WhatsApp. That’s what we bring to the table.</p>
     </section>
 
-    <section class="split-section">
-        <!-- OTP Section -->
-        <div class="otp-section">
-            <h2>Verify Your Phone Number</h2>
-            <label for="phoneNumber">Enter your phone number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="+1234567890" required>
-            <button type="button" id="sendOtp">Send OTP</button>
+    <section class="otp-section">
+        <h2>Verify Your Phone</h2>
+        <p>We sent a verification code to your mobile. Enter the code from WhatsApp in the field below.</p>
+        <p>******9265</p>
+        <div class="countdown-timer" id="countdownTimer">Code Expires in: 05:00</div>
 
-            <div id="otpInputSection" class="hidden">
-                <label for="otpCode">Enter the validation code:</label>
-                <input type="text" id="otpCode" name="otpCode" maxlength="6" required>
-                <button type="button" id="verifyOtp">Verify OTP</button>
-                <div class="countdown-timer" id="countdownTimer">Time left: 05:00</div>
-            </div>
+        <div>
+            <input type="text" maxlength="1" id="digit1">
+            <input type="text" maxlength="1" id="digit2">
+            <input type="text" maxlength="1" id="digit3">
+            <input type="text" maxlength="1" id="digit4">
+            <input type="text" maxlength="1" id="digit5">
+            <input type="text" maxlength="1" id="digit6">
         </div>
 
-        <!-- Google Login Section -->
-        <div class="google-login-section" id="googleLoginSection">
-            <h2>Login with Google</h2>
-            <p>Once your phone number is verified, you can log in with your Google account.</p>
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code
-            &client_id=YOUR_CLIENT_ID
-            &redirect_uri=https://yourdomain.com/oauth2callback
-            &scope=https://www.googleapis.com/auth/tasks
-            &access_type=offline">
-                <button id="googleLoginButton" disabled>Login with Google</button>
-            </a>
+        <div class="otp-buttons">
+            <button type="button" id="pasteCode">Paste Code</button>
+            <button type="button" id="verifyOtp">Verify My Number</button>
+            <a href="#" id="resendCode">Didn’t get the code? Resend</a>
+            <a href="#" id="changeNumber">Want to change number? Change Number</a>
         </div>
     </section>
 
     <div id="footer"></div>
 
     <script>
-        async function loadHTML(id, file) {
-            const element = document.getElementById(id);
-            const response = await fetch(file);
-            if (response.ok) {
-                element.innerHTML = await response.text();
-            } else {
-                console.error('Error loading:', file);
-            }
-        }
-
-        loadHTML('header', 'header.html');
-        loadHTML('footer', 'footer.html');
-
+        // Countdown timer logic
         let countdownInterval;
 
-        // Function to start the countdown
         function startCountdown(duration) {
             const countdownTimer = document.getElementById('countdownTimer');
-            let timeLeft = duration; // Time in seconds
+            let timeLeft = duration;
 
             countdownInterval = setInterval(() => {
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
-                countdownTimer.textContent = `Time left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                countdownTimer.textContent = `Code Expires in: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
                 if (timeLeft <= 0) {
                     clearInterval(countdownInterval);
-                    alert('Time expired! Please request a new OTP.');
-                    document.getElementById('otpInputSection').classList.add('hidden');
+                    countdownTimer.textContent = 'Code Expired';
                 }
 
                 timeLeft -= 1;
             }, 1000);
         }
 
-        // Step 1: Simulate Send OTP
-        document.getElementById('sendOtp').addEventListener('click', function () {
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            if (!phoneNumber) {
-                alert('Please enter a valid phone number.');
-                return;
-            }
+        // Start the countdown for 5 minutes
+        startCountdown(300);
 
-            // Mock success response
-            setTimeout(() => {
-                alert('OTP sent successfully!');
-                document.getElementById('otpInputSection').classList.remove('hidden');
-                clearInterval(countdownInterval); // Clear any previous countdown
-                startCountdown(300); // Start a 5-minute countdown
-            }, 500); // Simulate network delay
+        // Mock "Paste Code" button logic
+        document.getElementById('pasteCode').addEventListener('click', () => {
+            const code = '123456'; // Mock code
+            document.getElementById('digit1').value = code[0];
+            document.getElementById('digit2').value = code[1];
+            document.getElementById('digit3').value = code[2];
+            document.getElementById('digit4').value = code[3];
+            document.getElementById('digit5').value = code[4];
+            document.getElementById('digit6').value = code[5];
         });
 
-        // Step 2: Simulate Verify OTP
-        document.getElementById('verifyOtp').addEventListener('click', function () {
-            const otpCode = document.getElementById('otpCode').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            if (!otpCode || !phoneNumber) {
-                alert('Please complete the fields.');
-                return;
-            }
+        // Mock "Verify My Number" button logic
+        document.getElementById('verifyOtp').addEventListener('click', () => {
+            const enteredCode = [
+                document.getElementById('digit1').value,
+                document.getElementById('digit2').value,
+                document.getElementById('digit3').value,
+                document.getElementById('digit4').value,
+                document.getElementById('digit5').value,
+                document.getElementById('digit6').value,
+            ].join('');
 
-            // Mock success or failure response
-            setTimeout(() => {
-                if (otpCode === '123456') { // Use a predefined mock OTP for testing
-                    alert('Phone number verified!');
-                    clearInterval(countdownInterval); // Stop the countdown
-                    const googleLoginSection = document.getElementById('googleLoginSection');
-                    googleLoginSection.classList.add('active');
-                    document.getElementById('googleLoginButton').disabled = false;
-                } else {
-                    alert('OTP verification failed. Please try again.');
-                }
-            }, 500); // Simulate network delay
+            if (enteredCode === '123456') {
+                alert('Phone number verified successfully!');
+            } else {
+                alert('Invalid code. Please try again.');
+            }
+        });
+
+        // Mock "Resend Code" button logic
+        document.getElementById('resendCode').addEventListener('click', () => {
+            alert('A new code has been sent to your phone.');
+            clearInterval(countdownInterval);
+            startCountdown(300);
         });
     </script>
 </body>
