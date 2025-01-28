@@ -4,99 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Phone and Google Account</title>
-    <style>
-        /* Basic styling for the split screen */
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
-
-        .otp-section {
-            background-color: #f9f9f9;
-        }
-
-        .google-login-section {
-            background-color: #e0e0e0;
-            opacity: 0.5; /* Grayed out by default */
-            pointer-events: none; /* Prevent interaction */
-        }
-
-        .google-login-section.active {
-            opacity: 1;
-            pointer-events: auto; /* Enable interaction */
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        label {
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        input {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-            width: 100%;
-            max-width: 300px;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- OTP Section -->
-    <div class="container otp-section">
-        <h2>Verify Your Phone Number</h2>
-        <label for="phoneNumber">Enter your phone number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="+1234567890" required>
-        <button type="button" id="sendOtp">Send OTP</button>
+    <div id="header"></div>
 
-        <div id="otpInputSection" style="margin-top: 20px; display: none;">
-            <label for="otpCode">Enter the validation code:</label>
-            <input type="text" id="otpCode" name="otpCode" maxlength="6" required>
-            <button type="button" id="verifyOtp">Verify OTP</button>
+    <section class="hero">
+        <h1>Ally</h1>
+        <p>Imagine having a personal consultant who is always available, responds instantly, understands your needs, and provides expert advice — right from your WhatsApp. That’s what we bring to the table.</p>
+    </section>
+
+    <section class="split-section">
+        <!-- OTP Section -->
+        <div class="otp-section">
+            <h2>Verify Your Phone Number</h2>
+            <label for="phoneNumber">Enter your phone number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="+1234567890" required>
+            <button type="button" id="sendOtp">Send OTP</button>
+
+            <div id="otpInputSection" style="margin-top: 20px; display: none;">
+                <label for="otpCode">Enter the validation code:</label>
+                <input type="text" id="otpCode" name="otpCode" maxlength="6" required>
+                <button type="button" id="verifyOtp">Verify OTP</button>
+                <div class="countdown-timer" id="countdownTimer">Time left: 05:00</div>
+            </div>
         </div>
-    </div>
 
-    <!-- Google Login Section -->
-    <div class="container google-login-section" id="googleLoginSection">
-        <h2>Login with Google</h2>
-        <p>Once your phone number is verified, you can log in with your Google account.</p>
-        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code
-        &client_id=YOUR_CLIENT_ID
-        &redirect_uri=https://yourdomain.com/oauth2callback
-        &scope=https://www.googleapis.com/auth/tasks
-        &access_type=offline">
-            <button id="googleLoginButton" disabled>Login with Google</button>
-        </a>
-    </div>
+        <!-- Google Login Section -->
+        <div class="google-login-section" id="googleLoginSection">
+            <h2>Login with Google</h2>
+            <p>Once your phone number is verified, you can log in with your Google account.</p>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code
+            &client_id=YOUR_CLIENT_ID
+            &redirect_uri=https://yourdomain.com/oauth2callback
+            &scope=https://www.googleapis.com/auth/tasks
+            &access_type=offline">
+                <button id="googleLoginButton" disabled>Login with Google</button>
+            </a>
+        </div>
+    </section>
+
+    <div id="footer"></div>
 
     <script>
+        async function loadHTML(id, file) {
+            const element = document.getElementById(id);
+            const response = await fetch(file);
+            if (response.ok) {
+                element.innerHTML = await response.text();
+            } else {
+                console.error('Error loading:', file);
+            }
+        }
+
+        loadHTML('header', 'header.html');
+        loadHTML('footer', 'footer.html');
+
+        let countdownInterval;
+
+        // Function to start the countdown
+        function startCountdown(duration) {
+            const countdownTimer = document.getElementById('countdownTimer');
+            let timeLeft = duration; // Time in seconds
+
+            countdownInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdownTimer.textContent = `Time left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    alert('Time expired! Please request a new OTP.');
+                    document.getElementById('otpInputSection').style.display = 'none';
+                }
+
+                timeLeft -= 1;
+            }, 1000);
+        }
+
         // Step 1: Send OTP
         document.getElementById('sendOtp').addEventListener('click', function () {
             const phoneNumber = document.getElementById('phoneNumber').value;
@@ -115,6 +100,8 @@
                     if (data.success) {
                         alert('OTP sent successfully!');
                         document.getElementById('otpInputSection').style.display = 'block';
+                        clearInterval(countdownInterval); // Clear any previous countdown
+                        startCountdown(300); // Start a 5-minute countdown
                     } else {
                         alert(data.message || 'Failed to send OTP.');
                     }
@@ -139,7 +126,7 @@
                 .then(data => {
                     if (data.success) {
                         alert('Phone number verified!');
-                        // Enable the Google Login section
+                        clearInterval(countdownInterval); // Stop the countdown
                         const googleLoginSection = document.getElementById('googleLoginSection');
                         googleLoginSection.classList.add('active');
                         document.getElementById('googleLoginButton').disabled = false;

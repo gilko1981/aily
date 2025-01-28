@@ -150,3 +150,40 @@ footer a:hover {
     padding-left: 20px;
     margin: 15px 0;
 }
+
+/* General Split Section Styling */
+.split-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* OTP Section Styling */
+.otp-section, .google-login-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Google Login Section: Disabled State */
+.google-login-section {
+    opacity: 0.5; /* Gray out */
+    pointer-events: none; /* Disable interaction */
+    transition: opacity 0.3s ease;
+}
+
+.google-login-section.active {
+    opacity: 1; /* Enable section */
+    pointer-events: auto;
+}
+
+/* Countdown Timer */
+.countdown-timer {
+    font-size: 16px;
+    color: red;
+    margin-top: 10px;
+}
