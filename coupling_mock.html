@@ -72,10 +72,21 @@
             width: 100%;
         }
 
-        .flag {
-            width: 20px;
-            height: 15px;
-            margin-right: 5px;
+        .otp-buttons button {
+            background-color: #00d09c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .otp-buttons a {
+            color: #00d09c;
+            text-decoration: none;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -114,10 +125,16 @@
         </div>
         
         <div class="countdown-timer" id="countdownTimer">Code Expires in: 05:00</div>
+        
+        <div class="otp-buttons">
+            <button id="pasteCode">Paste Code</button>
+            <button id="verifyOtp">Verify My Number</button>
+            <p>Didn’t get the code? <a href="#" id="resendCode">Resend</a></p>
+            <p>Want to change number? <a href="#">Change Number</a></p>
+        </div>
     </section>
 
     <script>
-        // Mock "Verify My Number" button logic
         document.getElementById('verifyOtp').addEventListener('click', () => {
             const enteredCode = [
                 document.getElementById('digit1').value,
@@ -136,7 +153,6 @@
             }
         });
 
-        // Mock "Resend Code" button logic
         document.getElementById('resendCode').addEventListener('click', () => {
             alert('A new code has been sent to your phone.');
             clearInterval(countdownInterval);
