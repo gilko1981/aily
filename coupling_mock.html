@@ -55,13 +55,31 @@
         }
 
         .phone-input {
-            width: 60%;
+            width: 50%;
             padding: 8px;
             font-size: 14px;
             border: 1px solid #444;
             border-radius: 5px;
             background-color: #3a3a3a;
             color: #fff;
+        }
+
+        .send-code-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00d09c;
+            color: white;
+            cursor: pointer;
+        }
+
+        .send-code-button img {
+            width: 16px;
+            height: 16px;
         }
 
         .otp-inputs {
@@ -140,6 +158,9 @@
                 <option value="+81">🇯🇵 +81 </option>
             </select>
             <input type="text" class="phone-input" placeholder="Enter your phone number" id="phoneInput" required>
+            <button class="send-code-button" id="sendCode">
+                <img src="whatsapp-logo.png" alt="WhatsApp"> Send Code
+            </button>
         </div>
 
         <div class="otp-inputs">
@@ -154,7 +175,6 @@
         <div class="countdown-timer" id="countdownTimer">Code Expires in: 05:00</div>
         
         <div class="otp-buttons">
-            <button id="pasteCode">Paste Code</button>
             <button id="verifyOtp">Verify My Number</button>
             <p>Didn’t get the code? <a href="#" id="resendCode">Resend</a></p>
             <p>Want to change number? <a href="#">Change Number</a></p>
