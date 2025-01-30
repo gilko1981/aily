@@ -183,11 +183,11 @@
 
     <!-- OTP Inputs -->
     <div class="otp-inputs">
-      <input type="text" maxlength="1" id="digit1" />
-      <input type="text" maxlength="1" id="digit2" />
-      <input type="text" maxlength="1" id="digit3" />
-      <input type="text" maxlength="1" id="digit4" />
-      <input type="text" maxlength="1" id="digit5" />
+      <input type="text" maxlength="1" id="digit1" oninput="if(this.value.length === 1) document.getElementById('digit2').focus();" />
+      <input type="text" maxlength="1" id="digit2" oninput="if(this.value.length === 1) document.getElementById('digit3').focus();" />
+      <input type="text" maxlength="1" id="digit3" oninput="if(this.value.length === 1) document.getElementById('digit4').focus();" />
+      <input type="text" maxlength="1" id="digit4" oninput="if(this.value.length === 1) document.getElementById('digit5').focus();" />
+      <input type="text" maxlength="1" id="digit5" oninput="if(this.value.length === 1) document.getElementById('digit6').focus();" />
       <input type="text" maxlength="1" id="digit6" />
     </div>
 
