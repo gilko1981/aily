@@ -168,16 +168,18 @@
         <option value="+81">🇯🇵 +81</option>
       </select>
       <input
-        type="text"
+        type="tel"
         class="phone-input"
         placeholder="Enter your phone number"
         id="phoneInput"
+        pattern="[0-9]*"
         required
       />
     </div>
-    <div class="otp-buttons">
-      <button class="send-code-button" id="sendCode"> 
-        <img src="whatsapp-logo.png" alt="WhatsApp" /> Send Code
+    <div class="phone-container">
+      <button class="send-code-button" id="sendCode">
+        <img src="whatsapp-logo.png" alt="WhatsApp" style="vertical-align: middle; margin-right: 8px;" />
+        Send Code via WhatsApp
       </button>
     </div>
 
