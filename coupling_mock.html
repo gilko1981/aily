@@ -10,73 +10,99 @@
       text-align: center;
       background-color: #121212;
       color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    .otp-section {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: #2c2c2c;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      width: 80%;
-      max-width: 320px;
+      justify-content: center;
+    }
+
+    .otp-section {
+      background-color: rgba(44, 44, 44, 0.95);
+      padding: 32px 24px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 360px;
       margin: auto;
     }
 
     .otp-section h2 {
-      color: #f2f2f2;
-      margin-bottom: 10px;
+      color: #ffffff;
+      margin: 0 0 12px 0;
+      font-size: 24px;
+      font-weight: 600;
     }
 
     .otp-section p {
-      color: #f2f2f2;
-      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0 0 24px 0;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .phone-container {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .country-code {
-      width: 90px;
-      height: 40px;
-      padding: 0 10px;
+      width: 100px;
+      height: 44px;
+      padding: 0 12px;
       font-size: 14px;
-      font-family: Arial, sans-serif;
-      border: 1px solid #444;
-      border-radius: 5px;
-      background-color: #3a3a3a;
-      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+      appearance: none;
     }
 
     .phone-input {
       flex: 1;
-      height: 40px;
-      padding: 0 10px;
+      height: 44px;
+      padding: 0 16px;
       font-size: 14px;
-      font-family: Arial, sans-serif;
-      border: 1px solid #444;
-      border-radius: 5px;
-      background-color: #3a3a3a;
-      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
     }
 
-    .send-code-button {
+    button {
+      height: 44px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #00DC7D;
+      color: black;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #00c870;
+    }
+
+    .send-code-button img {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
     }
 
     .otp-inputs {
       display: flex;
+      gap: 8px;
+      margin: 24px 0;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
     }
 
     .otp-inputs input {
@@ -84,52 +110,49 @@
       height: 40px;
       text-align: center;
       font-size: 16px;
-      font-family: Arial, sans-serif;
-      border: 1px solid #444;
-      border-radius: 5px;
-      background-color: #3a3a3a;
-      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+
+    .countdown-timer {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 16px 0;
     }
 
     .otp-buttons {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-      width: 100%;
-    }
-
-    .otp-buttons button {
-      font-size: 14px;
-      padding: 0 15px;
+      gap: 16px;
     }
 
     .otp-buttons p {
       margin: 0;
-      font-size: 14px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
     }
 
-    .countdown-timer {
-      font-size: 14px;
-      margin: 10px 0;
-      color: #f2f2f2;
+    .otp-buttons a {
+      color: #00DC7D;
+      text-decoration: none;
+      margin-left: 4px;
     }
 
-    /* Updated/Added button styles for consistency */
-    button {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      height: 40px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #00d09c;
-      color: white;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 15px;
+    .otp-buttons a:hover {
+      text-decoration: underline;
+    }
+
+    /* Remove default focus outlines and add custom ones */
+    input:focus, button:focus, select:focus {
+      outline: none;
+      border-color: #00DC7D;
+    }
+
+    /* Placeholder styling */
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
