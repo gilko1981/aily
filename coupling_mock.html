@@ -39,15 +39,17 @@
     .phone-container {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 10px;
       width: 100%;
       margin-bottom: 20px;
     }
 
     .country-code {
       width: 90px;
-      padding: 10px;
+      height: 40px;
+      padding: 0 10px;
       font-size: 14px;
+      font-family: Arial, sans-serif;
       border: 1px solid #444;
       border-radius: 5px;
       background-color: #3a3a3a;
@@ -56,8 +58,10 @@
 
     .phone-input {
       flex: 1;
-      padding: 10px;
+      height: 40px;
+      padding: 0 10px;
       font-size: 14px;
+      font-family: Arial, sans-serif;
       border: 1px solid #444;
       border-radius: 5px;
       background-color: #3a3a3a;
@@ -65,23 +69,7 @@
     }
 
     .send-code-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      font-size: 14px;
-      border: none;
-      border-radius: 5px;
-      background-color: #00d09c;
-      color: white;
-      cursor: pointer;
-      height: 40px;
-    }
-
-    .send-code-button img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
+      width: 100%;
     }
 
     .otp-inputs {
@@ -92,10 +80,11 @@
     }
 
     .otp-inputs input {
-      width: 20px;
-      height: 20px;
+      width: 40px;
+      height: 40px;
       text-align: center;
-      font-size: 18px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
       border: 1px solid #444;
       border-radius: 5px;
       background-color: #3a3a3a;
@@ -105,26 +94,42 @@
     .otp-buttons {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
       margin-top: 20px;
       width: 100%;
     }
 
     .otp-buttons button {
-      background-color: #00d09c;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 12px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
+      font-size: 14px;
+      padding: 0 15px;
     }
 
-    .otp-buttons a {
-      color: #00d09c;
-      text-decoration: none;
+    .otp-buttons p {
+      margin: 0;
       font-size: 14px;
+    }
+
+    .countdown-timer {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #f2f2f2;
+    }
+
+    /* Updated/Added button styles for consistency */
+    button {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      height: 40px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #00d09c;
+      color: white;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
     }
   </style>
 </head>
@@ -134,7 +139,7 @@
     <h1>Ally</h1>
     <p>
       Imagine having a personal consultant who is always available, responds instantly, understands your needs, and
-      provides expert advice — right from your WhatsApp. That’s what we bring to the table.
+      provides expert advice — right from your WhatsApp. That's what we bring to the table.
     </p>
   </section>
 
@@ -200,7 +205,7 @@
     <div class="otp-buttons">
       <button id="verifyOtp">Verify My Number</button>
       <p>
-        Didn’t get the code?
+        Didn't get the code?
         <a href="#" id="resendCode">Resend</a>
       </p>
       <p>
